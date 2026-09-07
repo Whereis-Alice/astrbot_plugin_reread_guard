@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">复读守护 · EchoGuard</title>
+  <desc id="desc">A protected echo represented by two speech bubbles, echo waves and a shield.</desc>
+  <defs>
+    <linearGradient id="bg" x1="38" y1="26" x2="474" y2="492" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12224A"/>
+      <stop offset="0.55" stop-color="#183A67"/>
+      <stop offset="1" stop-color="#0B1A38"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="196" y1="130" x2="338" y2="386" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#63E6E0"/>
+      <stop offset="1" stop-color="#2FB6D9"/>
+    </linearGradient>
+    <linearGradient id="bubble" x1="72" y1="94" x2="269" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#BFE8FF" stop-opacity="0.92"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#020A1D" flood-opacity="0.42"/>
+    </filter>
+    <clipPath id="round"><rect width="512" height="512" rx="112"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <circle cx="95" cy="42" r="170" fill="#387BCE" opacity="0.18"/>
+    <circle cx="460" cy="484" r="170" fill="#24C8C4" opacity="0.12"/>
+
+    <!-- Echo waves: visible, soft and deliberately outside the shield. -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M380 174c36 36 36 128 0 164" stroke="#7BEAE6" stroke-width="18" opacity="0.92"/>
+      <path d="M421 139c55 55 55 179 0 234" stroke="#59D8E2" stroke-width="14" opacity="0.58"/>
+      <path d="M455 111c72 72 72 220 0 290" stroke="#4BA7D9" stroke-width="11" opacity="0.28"/>
+    </g>
+
+    <!-- Primary speech bubble. -->
+    <g filter="url(#shadow)">
+      <path d="M74 101c0-24 20-44 44-44h140c24 0 44 20 44 44v94c0 24-20 44-44 44H163l-48 38v-38h-1c-22-2-40-21-40-44z" fill="url(#bubble)"/>
+      <circle cx="145" cy="147" r="12" fill="#3976B5"/>
+      <circle cx="191" cy="147" r="12" fill="#3976B5"/>
+      <circle cx="237" cy="147" r="12" fill="#3976B5"/>
+    </g>
+
+    <!-- Guard shield: keeps echo in its lane while other bot features continue. -->
+    <path d="M257 158l95 36v72c0 57-38 106-95 128-57-22-95-71-95-128v-72z" fill="#071A39" opacity="0.68"/>
+    <path d="M257 143l95 36v72c0 57-38 106-95 128-57-22-95-71-95-128v-72z" fill="url(#shield)" stroke="#B4FFFA" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M257 174l65 25v52c0 39-25 73-65 91-40-18-65-52-65-91v-52z" fill="#0E3B69" opacity="0.84"/>
+
+    <!-- Check mark signals safe, non-blocking behavior. -->
+    <path d="M220 246l24 24 52-59" fill="none" stroke="#E9FFFF" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Small echo cue on the shield. -->
+    <path d="M209 321c14 8 30 13 48 17" fill="none" stroke="#B5FFF7" stroke-width="8" stroke-linecap="round" opacity="0.8"/>
+    <path d="M300 321c-14 8-30 13-43 17" fill="none" stroke="#B5FFF7" stroke-width="8" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- Subtle baseline separates the icon from the background at small sizes. -->
+    <path d="M88 408h336" stroke="#75D9E0" stroke-width="3" stroke-linecap="round" opacity="0.24"/>
+  </g>
+</svg>
