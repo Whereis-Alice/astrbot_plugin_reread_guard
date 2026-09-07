@@ -1,0 +1,182 @@
+{
+  "group_whitelist": {
+    "description": "检测复读的群聊白名单",
+    "type": "list",
+    "hint": "仅在这些群里启用复读功能，留空表示全部群聊启用",
+    "default": []
+  },
+  "blocked_words": {
+    "description": "文本屏蔽词",
+    "type": "list",
+    "hint": "文本消息包含任一屏蔽词时不参与复读检测，避免机器人跟读敏感词",
+    "default": []
+  },
+  "need_different": {
+    "description": "多人复读检测",
+    "type": "bool",
+    "hint": "是否要求消息要来自不同人才进行复读检测，此机制可以防止单个人恶意引导复读，如广告哥",
+    "default": true
+  },
+  "thresholds": {
+    "description": "复读检测阈值",
+    "type": "object",
+    "hint": "阈值太低容易导致刷屏，太高则难以触发复读。注意：考虑到其他类型消息出现得很少，这里仅可配置文本、图片、表情，其他类型一律不复读",
+    "items": {
+      "Plain": {
+        "description": "文本复读阈值",
+        "hint": "重复发同一句话多少次后复读",
+        "type": "int",
+        "slider": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "default": 4
+      },
+      "Image": {
+        "description": "图片复读阈值",
+        "hint": "重复发同一张图片多少次后复读",
+        "type": "int",
+        "slider": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "default": 3
+      },
+      "Face": {
+        "description": "表情复读阈值",
+        "hint": "重复发同一个QQ表情多少次后复读",
+        "type": "int",
+        "slider": {
+          "min": 2,
+          "max": 5,
+          "step": 1
+        },
+        "default": 2
+      }
+    }
+  },
+  "echo_probability": {
+    "description": "复读响应概率",
+    "hint": "到达复读阈值后，是否触发一个动作的概率；触发后再按动作权重随机选择跟随、打断或禁言",
+    "type": "float",
+    "slider": {
+      "min": 0,
+      "max": 1,
+      "step": 0.01
+    },
+    "default": 0.8
+  },
+  "follow": {
+    "description": "响应1：跟随复读",
+    "type": "object",
+    "items": {
+      "weight": {
+        "description": "触发权重",
+        "hint": "触发概率 = 本权重 / 所有动作权重之和；设为 0 则关闭跟随动作",
+        "type": "int",
+        "slider": {
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "default": 90
+      }
+    }
+  },
+  "interrupt": {
+    "description": "响应2：打断复读",
+    "type": "object",
+    "items": {
+      "weight": {
+        "description": "触发权重",
+        "hint": "触发概率 = 本权重 / 所有动作权重之和；设为 0 则关闭打断动作",
+        "type": "int",
+        "slider": {
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "default": 5
+      },
+      "text": {
+        "description": "打断文本",
+        "type": "string",
+        "hint": "触发打断动作时发送的文本",
+        "default": "打断！"
+      }
+    }
+  },
+  "ban": {
+    "description": "响应3：禁言复读者",
+    "type": "object",
+    "items": {
+      "weight": {
+        "description": "触发权重",
+        "hint": "触发概率 = 本权重 / 所有动作权重之和；设为 0 则关闭禁言动作",
+        "type": "int",
+        "slider": {
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "default": 5
+      },
+      "duration": {
+        "description": "禁言时长",
+        "type": "int",
+        "hint": "禁言持续时间，单位为秒，设为 0 等同于关闭禁言动作",
+        "slider": {
+          "min": 0,
+          "max": 3600,
+          "step": 10
+        },
+        "default": 60
+      },
+      "prompt": {
+        "description": "禁言提示词",
+        "type": "text",
+        "hint": "禁言成功后发送的提示词，支持 {user_name}、{user_id}、{group_id}、{ban_duration}、{repeat_count}",
+        "default": "{user_name}复读过头了，先禁言{ban_duration}秒"
+      }
+    }
+  },
+  "ignore_command_messages": {
+    "description": "忽略命令样式消息",
+    "hint": "开启后跳过以 command_prefixes 开头的消息，避免命令触发复读",
+    "type": "bool",
+    "default": true
+  },
+  "command_prefixes": {
+    "description": "命令前缀",
+    "hint": "消息以任一前缀开头时跳过复读，例如 /、!",
+    "type": "list",
+    "default": [
+      "/",
+      "!"
+    ]
+  },
+  "action_timeout_seconds": {
+    "description": "独立动作超时（秒）",
+    "hint": "复读发送或禁言动作超过该时间会自动取消，避免阻塞或积压后台任务",
+    "type": "float",
+    "slider": {
+      "min": 1,
+      "max": 60,
+      "step": 1
+    },
+    "default": 10
+  },
+  "max_pending_actions": {
+    "description": "最大待执行动作数",
+    "hint": "平台发送异常卡住时，超过此数量的新复读动作会被丢弃，保护机器人资源",
+    "type": "int",
+    "slider": {
+      "min": 1,
+      "max": 100,
+      "step": 1
+    },
+    "default": 32
+  }
+}
