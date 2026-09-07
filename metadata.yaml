@@ -1,0 +1,8 @@
+name: astrbot_plugin_reread_guard
+display_name: 复读守护（EchoGuard）
+desc: 只观察群聊复读并独立发送结果，不修改事件结果，因此不会吞掉命令、LLM 或其它插件功能。
+help: 请参阅 README.md 获取安装、配置和故障排查说明。
+version: v1.0.0
+author: Huli3
+repo: https://github.com/Huli3/astrbot_plugin_reread_guard
+astrbot_version: ">=4.16,<5"
